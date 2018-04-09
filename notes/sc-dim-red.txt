@@ -1,0 +1,30 @@
+dimensionality reduction
+
+goals: eliminate correlations and improve similarity results
+
+LSA:
+  2nd order cooccurrence:
+    a dim reduction strategy projects down high dimensions.
+    LSA based on SVD: for all A, exists: Am.n = Tm.m Sm.m Dn.m^T.
+        S is diagonal; diag values are ordered.
+        T and D are orthonormal: cols length normalized and
+            orthogonal ie have cos dist of one
+        LSA called 'truncated svd' sometimes
+
+        two alternative terms can appear far since low cooccurrence
+        but the svd and LSA trucation helps with this.
+
+        (SVD more reliable on normal data...?)
+        
+        empirical: lsa helps distribute results more normally/evenly
+
+Others:
+    PCA (similar to LSA)
+    Probabilistic LSA (PLSA) related to...
+    Latent Dirichlet Allocation
+    t-SNE, t-distributed stochastic neighbor embedding @ vix
+    word2vec >
+    glove    > composite dim red with reweighting
+
+
+Turney & Pantel 2010, From frequency to meaning, p160
