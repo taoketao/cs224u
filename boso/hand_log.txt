@@ -1,0 +1,16 @@
+All descriptions are relative to default settings unless otherwise noted with settings:
+	- see file for default seeds. - cosine distance function in semantic orientation
+	- ppmi before so
+0. baseline. pearsonr's r: V: 0.361 A: 0.005 D: 0.315
+1. remove an item from default sets. pearson's r. V: 0.369 A: 0.018 D: 0.310 Two rhos increased and one rho decreased.
+2. imdb5 instead of imdb20 on default sets. V: 0.165 A: -0.022 D: 0.127
+3. used seed sets (bad, negative), (good, positive). V: 0.298, A: 0.080, D: 0.231
+4. used matching instead of cosine fn on semantic orientation. V: -0.316, A: 0.036, D: -0.288
+5. used jaccard as distance function in semantic orientation. V: 0.330, -0.001, 0.301
+-> conclusion: use cosine distance.
+6. normalized column lengths after ppmi. Got same VAD as [0]: because ppmi normalizes already?
+7. normalized row lengths after ppmi. Getting same VAD as [0] makes me tentatively conclude [6] also
+8.*normalized row lengths before ppmi. V: 0.357, A: 0.044, D: 0.309 -- net improvement!
+9.*normalized row then col before ppmi. V:0.359, A: 0.043, D: 0.311 -- net improvement (marginal)
+10*normalized col,row before and after ppmi. V:0.385, A: 0.004, D: 0.0.340 V,D improvements
+
