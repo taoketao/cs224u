@@ -1,0 +1,16 @@
+Docs x words matrix -> bag of words rep.
+Focus on rows = word representation
+essential tool: distributional tools.
+
+Questions: how do rows relate? How do cols relate? Which words epitomize {documents}? Which documents epitomize words (the information retrieval task}?
+Other matrix designs:
+ - word-by-doc most commonly used by far
+    - sparse
+ - word-by-word with a specified co-occurence relation.
+    - invariant size wrt data
+ - word-by-discourse context ...?! poorly explained
+ - phonological segment (like letters) x feature values (nasal or not)
+    - obviously useful for specific linguistic task
+
+ - basically, lots of matrix design type options. Preprocessing, data cleaning/manipulation impt; numerical representation; dimensionality reduction, possibly adding supervised information for task leaning; vector comparison options.
+   -> most options among these categories can be combined with each other as independent hyperparameters: matrix type, reweighting, dim red, vector comp.

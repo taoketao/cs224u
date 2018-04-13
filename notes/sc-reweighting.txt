@@ -1,0 +1,45 @@
+Distributed word representations: matrix REWEIGHTING
+goal of reweighting: amp important, salient; squash mundane & exceptions
+
+freq is a poor metric for target semantic objects
+for reweighting schemes:
+    - cmp raw counts
+    - cmp word freq
+    - overall distribution
+    - can it automatically filter out stopwords, etc
+
+normalizations
+    by L2, by L1 ((log?)-probabilistic)
+    - Normalizing wrt col or wrt row can obscure amount of evidence.
+      However, such schemes can help shift data to more normal.
+      Empiricially this has a strong correlation to frequency, 
+      mooting our point of normalization.
+    - tf-idf breaks this: 
+        tf is columnwise normalization of a word against the documents
+        idf accounts for prevalence of the word amonst documents, ie
+            a rough measure of how unique a word is to a document.
+            idf with log can zero-out uninformative words.
+
+            tf over doc, idf concerns all docs, linked over words.
+        does indeed help balance reliability of too few data with
+        uselessness of ubiquitous words.
+        breaks correlation well.
+        * cares precisely about how documents compare to each other wrt.
+            their word contents.
+    - pmi pointwise mutual information:
+        * accounts for import of a word in one document to change the
+            word's import in another, in true bayesian fashion of 
+            explaining away.
+        known to overemphasize low values.
+        still breaks correlation with raw frequency.
+
+      - variant: Laplacian smoothing is unpredictable 
+      - variant: contextual discounting. attempts to bias pmi away
+            from low-count items.
+      - variant: positive pmi: floor at 0; because zero evidence events
+            get higher preference than evidence with unexpected low
+            probability.
+    - chi-squared-influenced text called expected (?!)
+    - t-test also works
+    - tf-idf variants conscious of word distributions
+    - pairwise distances across anonymous documents - for word cooccurrence?

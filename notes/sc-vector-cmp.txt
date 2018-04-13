@@ -1,0 +1,21 @@
+L.
+    dx  dy
+A   2   4
+B   10  15
+C   14  10
+
+Care only about row comparisons;
+    freq(C,B) similar, but distribution(A,B) similar.
+
+distances and similarities:
+ - euclidean distance, sqrt sum across sqr-documents
+    - not useful for above task.
+ - cosine similarity: 
+    1. normalize wrt L2 length of vector.
+        graphically, projects all vectors onto hypersphere
+    2. dot vectors and normalize by product of their L2 
+        makes distance instead of similarity
+
+ - manhattan L1 distance
+ - Probabilistic distances based mostly on KL divergence
+ - matching/set metrics
