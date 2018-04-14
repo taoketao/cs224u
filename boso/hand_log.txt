@@ -1,16 +1,65 @@
 All descriptions are relative to default settings unless otherwise noted with settings:
 	- see file for default seeds. - cosine distance function in semantic orientation
 	- ppmi before so
+    - asterisks mark arguably best-so-far trials, ** marks unilaterally best
+
 0. baseline. pearsonr's r: V: 0.361 A: 0.005 D: 0.315
-1. remove an item from default sets. pearson's r. V: 0.369 A: 0.018 D: 0.310 Two rhos increased and one rho decreased.
+1. remove an item from default sets. pearson's r.  (inferior & superior)
+    V: 0.369 A: 0.018 D: 0.310 Two rhos increased and one rho decreased.
 2. imdb5 instead of imdb20 on default sets. V: 0.165 A: -0.022 D: 0.127
 3. used seed sets (bad, negative), (good, positive). V: 0.298, A: 0.080, D: 0.231
 4. used matching instead of cosine fn on semantic orientation. V: -0.316, A: 0.036, D: -0.288
-5. used jaccard as distance function in semantic orientation. V: 0.330, -0.001, 0.301
+5. used jaccard as distance function in semantic orientation. 
+    V: 0.330, -0.001, 0.301
 -> conclusion: use cosine distance.
 6. normalized column lengths after ppmi. Got same VAD as [0]: because ppmi normalizes already?
 7. normalized row lengths after ppmi. Getting same VAD as [0] makes me tentatively conclude [6] also
-8.*normalized row lengths before ppmi. V: 0.357, A: 0.044, D: 0.309 -- net improvement!
-9.*normalized row then col before ppmi. V:0.359, A: 0.043, D: 0.311 -- net improvement (marginal)
-10*normalized col,row before and after ppmi. V:0.385, A: 0.004, D: 0.0.340 V,D improvements
+8.*normalized row lengths before ppmi. 
+    V: 0.357, A: 0.044, D: 0.309 -- net improvement!
+9.*normalized row then col before ppmi. 
+    V:0.359, A: 0.043, D: 0.311 -- net improvement (marginal)
+10*normalized col,row before and after ppmi. 
+    V:0.385, A: 0.004, D: 0.0.340 V,D improvements
+11 adding ~170 seeds each, given by pmi(imdb5) and crawled by nearest neighbor, gave results:
+    V: 0.186, A: 0.026, D: 0.169. Parameters: laplace 1.0, nsteps 3, nadditions 4
+12 adding 107/121 seeds each, given by pmi(imdb5) and crawled by nearest neighbor, gave results:
+    V: 0.218, A: 0.046, D: 0.245. Parameters: laplace 1.0, nsteps 2, nadditions 5
+13 adding 154/173 seeds each, given by pmi(ooe(imdb5)) and crawled by nearest neighbor, gave results:
+    V: 0.318, A: 0.005, D: 0.302. Parameters: laplace 1.0, nsteps 1, nadditions 30
+    ^ Long runtime! ~7 minutes.
+13 adding 183/89 seeds each, given by pmi(ooe(imdb5)) and crawled by nearest neighbor, gave results:
+    V: 0.340, A: 0.010, D: 0.294. Parameters: laplace 1.0, nsteps 1, nadditions 20
+14 testing out exactly the above comp [13] but with Euclidean distance for SO.
+    V: 0.322, A: 0.066, D: 0.289.
+15 same as [14] except seeds generated from imdb20.
+    V: 0.219, A: 0.137, D: 0.217
+16 same as [15] except use cosine in so, the default metric.
+    V: 0.297, A: 0.047, D: 0.271
+(best so far: 10 and 2)
+17 using 10 and 1's tricks. 1: randomly deleting elements.
+    V: 0.306, A: 0.077, D: 0.247    bad / good
+    V: 0.384, A: 0.038, D: 0.279    unfortunate, poor / fortunate, excellent 
+  * V: 0.431, A:-0.097, D: 0.376    nasty, bad, unfortunate, wrong / nice, good, fortunate, correct
+    V: 0.467, A:-0.120, D: 0.381    unfortunate, negative, nasty / fortunate, postitive, nice
+    V: 0.103, A:-0.004, D: 0.071    same as above but on imdb5
+    -> which best represents A? This seems to be the tricky one. Test each pair independently.
+    unfortunate/fortunate: 0.266 -0.097 0.171       X
+    poor/excellent: 0.309, 0.096, 0.237             +
+    nasty/nice: 0.363, -0.110 0.327                 X
+    wrong/correct: 0.029, -0.068, 0.082             X
+    negative/positive: 0.196, 0.093, 0.152          +
+    bad/good from above                             +
+    inferior/superior: doesn't work on imdb..?
 
+  * V: 0.329, A: 0.100, D: 0.257    poor,negative,bad / excellent,positive,good 
+
+18 Use this well-correlative triple to scrape the IMDB graph, as in [11-16] (params: bootstrap's
+        distance discount factor is now nsteps**0.5. nsteps=2, nadditions=8.) 49,46 seeds.
+    V: 0.223, A: 0.101, D: 0.129.
+        with constant discount:
+
+19 Suspicious of putting ooe before ppmi...removing that from otherwise [18].
+    V: 0.317, A: 0.085, D: 0.236
+
+- glove before so
+- acquire df on gigaword?
