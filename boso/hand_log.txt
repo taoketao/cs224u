@@ -37,21 +37,21 @@ All descriptions are relative to default settings unless otherwise noted with se
     V: 0.297, A: 0.047, D: 0.271
 (best so far: 10 and 2)
 17 using 10 and 1's tricks. 1: randomly deleting elements.
-    V: 0.306, A: 0.077, D: 0.247    bad / good
-    V: 0.384, A: 0.038, D: 0.279    unfortunate, poor / fortunate, excellent 
-  * V: 0.431, A:-0.097, D: 0.376    nasty, bad, unfortunate, wrong / nice, good, fortunate, correct
-    V: 0.467, A:-0.120, D: 0.381    unfortunate, negative, nasty / fortunate, postitive, nice
-    V: 0.103, A:-0.004, D: 0.071    same as above but on imdb5
-    -> which best represents A? This seems to be the tricky one. Test each pair independently.
-    unfortunate/fortunate: 0.266 -0.097 0.171       X
-    poor/excellent: 0.309, 0.096, 0.237             +
-    nasty/nice: 0.363, -0.110 0.327                 X
-    wrong/correct: 0.029, -0.068, 0.082             X
-    negative/positive: 0.196, 0.093, 0.152          +
-    bad/good from above                             +
-    inferior/superior: doesn't work on imdb..?
+ a      V: 0.306, A: 0.077, D: 0.247    bad / good
+ b      V: 0.384, A: 0.038, D: 0.279    unfortunate, poor / fortunate, excellent 
+ c    * V: 0.431, A:-0.097, D: 0.376    nasty, bad, unfortunate, wrong / nice, good, fortunate, correct
+ d      V: 0.467, A:-0.120, D: 0.381    unfortunate, negative, nasty / fortunate, postitive, nice
+ e      V: 0.103, A:-0.004, D: 0.071    same as above but on imdb5
+         -> which best represents A? This seems to be the tricky one. Test each pair independently.
+ g      unfortunate/fortunate: 0.266 -0.097 0.171       X
+ h      poor/excellent: 0.309, 0.096, 0.237             +
+ i      nasty/nice: 0.363, -0.110 0.327                 X
+ j      wrong/correct: 0.029, -0.068, 0.082             X
+ k      negative/positive: 0.196, 0.093, 0.152          +
+ l      bad/good from above                             +
+ m      inferior/superior: doesn't work on imdb..?
 
-  * V: 0.329, A: 0.100, D: 0.257    poor,negative,bad / excellent,positive,good 
+ n    * V: 0.329, A: 0.100, D: 0.257    poor,negative,bad / excellent,positive,good 
 
 18 Use this well-correlative triple to scrape the IMDB graph, as in [11-16] (params: bootstrap's
         distance discount factor is now nsteps**0.5. nsteps=2, nadditions=8.) 49,46 seeds.
@@ -60,6 +60,16 @@ All descriptions are relative to default settings unless otherwise noted with se
 
 19 Suspicious of putting ooe before ppmi...removing that from otherwise [18].
     V: 0.317, A: 0.085, D: 0.236
+20 ran t-SNE on pmi(imdb20) for comprehension
+21 added a mittens default-setting GloVe run just before the SO operation.
+    V: 0.011, A: 0.136, D: -0.027  (with the triad 17.n)
+22 added a mittens default-setting GloVe run just before the SO operation.
+    V: 0.038, A: -0.035, D: 0.087  (with the triad 17.c) (err ~2.6K)
+23 The convergence errors and rates indicate a poor parameterization.
+    Like 22 exxcept alpha=0.9, n=30, xmax=150: 
+    V: -0.049 A: -0.130, D: -0.087  (err 533)
+24 Like 23 except n=100. Also negative values.
+25 Like 24 but with default seeds.
+26 Try a different dim red method: LSA. This is 19 with LSA before SO.
+FUCK THIS ISN'T THE GRADED BAKEOFF its wordsim not semantic-orientation
 
-- glove before so
-- acquire df on gigaword?
