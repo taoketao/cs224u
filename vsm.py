@@ -1,7 +1,7 @@
 import codecs
 from collections import defaultdict
 import itertools
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import random
@@ -68,6 +68,17 @@ def neighbors(word, df, distfunc=cosine):
     w = df.loc[word]
     dists = df.apply(lambda x: distfunc(w, x), axis=1)
     return dists.sort_values()
+
+def dice_dist(u, v):
+    return 1.0 - (2*matching(u, v))/(np.sum(u+v))
+
+def ttest_reweight(df):
+    reduce_row = df.sum(0)
+    reduce_col = df.sum(1)
+
+    print(re
+
+
 
 
 def observed_over_expected(df):
