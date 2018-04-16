@@ -80,11 +80,12 @@ def outer_product(row):
 
 
 def ttest_reweight(df):
-#    print(df, '\n')
+#    print('df_norm', df.index, df.shape, '\n')
     reduce_row = df.sum(0)
     reduce_col = df.sum(1)
     tot_val = df.values.sum()
     df_norm = df / tot_val
+#    print('df_norm', df_norm.index, df_norm.shape, '\n')
     # for the homework, these two are equal since df is symmetric
     rrow_norm = reduce_row / tot_val
     rcol_norm = reduce_col / tot_val
@@ -92,8 +93,15 @@ def ttest_reweight(df):
                             rcol_norm.values.flatten().T)
     # This homework can: assert(np.allclose(sym,sym.T))
     ttest_num = df_norm - sym 
-    ttest_denom = pd.DataFrame(np.sqrt(sym))
-    return ttest_num / ttest_denom
+#    print('ttest_num', ttest_num.index, ttest_num.shape, '\n')
+#    ttest_denom = pd.DataFrame(data=np.sqrt(sym))
+#    print('ttest_denom', ttest_denom.index, ttest_denom.shape, '\n')
+    #ttval = ttest_num / ttest_denom
+    ttval = ttest_num / np.sqrt(sym)
+#    print('ttval', ttval.index, ttval.shape, '\n')
+#    df2 = pd.DataFrame(data=ttval, index=df.index)
+#    ttval.set_index(df.index)
+    return ttval
 
 
 def observed_over_expected(df):
