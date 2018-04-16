@@ -72,13 +72,28 @@ def neighbors(word, df, distfunc=cosine):
 def dice_dist(u, v):
     return 1.0 - (2*matching(u, v))/(np.sum(u+v))
 
+def outer_product(row):
+# outer product code adapted from
+    numerator = df.sum(1).mul(row.sum(0))
+    denominator = df.sum(0).sum(0)
+    return (numerator.floordiv(denominator))
+
+
 def ttest_reweight(df):
+#    print(df, '\n')
     reduce_row = df.sum(0)
     reduce_col = df.sum(1)
-
-    print(re
-
-
+    tot_val = df.values.sum()
+    df_norm = df / tot_val
+    # for the homework, these two are equal since df is symmetric
+    rrow_norm = reduce_row / tot_val
+    rcol_norm = reduce_col / tot_val
+    sym = np.multiply.outer(rrow_norm.values.flatten(), 
+                            rcol_norm.values.flatten().T)
+    # This homework can: assert(np.allclose(sym,sym.T))
+    ttest_num = df_norm - sym 
+    ttest_denom = pd.DataFrame(np.sqrt(sym))
+    return ttest_num / ttest_denom
 
 
 def observed_over_expected(df):
